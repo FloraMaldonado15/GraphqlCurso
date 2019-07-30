@@ -1,0 +1,43 @@
+#scalar DateTime
+type Query {
+    saludo(name:String!):String!
+    #getAllPosts(title:String!):String! 
+    getAllPosts(title:String!):[Post]
+}
+
+type Mutation {
+    createPost(data:inputPost!):Post
+    #getAllPosts:[Post]
+    createUser(data:inputUser!):User
+    
+}
+
+#Lo que va a devolver
+type Post {
+    id:ID
+    title:String!
+    body:String!
+    createdAt:String!
+    user:User!
+}
+
+type User{
+    id:ID
+    name:String!
+    email:String!
+}
+
+#va a ingresar datos o los que van a entrar
+input inputPost {
+    title:String!
+    body:String!
+    createdAt:String!
+    #date: date
+    user:ID
+}
+
+type inputUser{
+    name:String!
+    email:String!
+    password:String!
+}
