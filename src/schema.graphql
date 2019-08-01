@@ -1,18 +1,19 @@
-#scalar DateTime
+directive @auth on FIELD_DEFINITION | FIELD
+scalar Upload
+
 type Query {
-    saludo(name:String!):String!
-    #getAllPosts(title:String!):String! 
-    getAllPosts(title:String!):[Post]
+    getAllPosts:[Post]
+    getPost(id:ID!):Post
+    getUsers:[User] @auth
 }
 
 type Mutation {
     createPost(data:inputPost!):Post
-    #getAllPosts:[Post]
     createUser(data:inputUser!):User
-    
+    login(data:inputLogin!):Auth
+    addPhoto(photo:Upload!):String
 }
 
-#Lo que va a devolver
 type Post {
     id:ID
     title:String!
@@ -21,23 +22,31 @@ type Post {
     user:User!
 }
 
-type User{
+type User {
     id:ID
     name:String!
     email:String!
 }
 
-#va a ingresar datos o los que van a entrar
+type Auth {
+    token:String!
+    message:String!
+}
+
 input inputPost {
     title:String!
     body:String!
     createdAt:String!
-    #date: date
     user:ID
 }
 
-type inputUser{
+input inputUser {
     name:String!
+    email:String!
+    password:String!
+}
+
+input inputLogin {
     email:String!
     password:String!
 }
