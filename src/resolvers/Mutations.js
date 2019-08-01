@@ -41,6 +41,8 @@ const addPhoto = async(root, args) => {
         console.log('Strema ==>> ', stream);
         const url = await storage ({stream})
         console.log(url)
+        await User.findByIdAndUpdate(args.id,{ $set: {img: url.url}})
+        return url.url;
     }
 }
 
